@@ -1,0 +1,35 @@
+#banner
+{
+    text-align: center;
+    color: red;
+    background-color: black;
+    height: 75px;
+}
+
+#gameStart
+{
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+}
+
+#questions
+{
+    background-color: black;
+    color: white;
+}
+
+#answer1, #answer2, #answer3, #answer4
+{
+    background-color: black;
+    color: white;
+    height: "";
+    width: "";
+    font-size: 20px;
+    padding: 14px;
+}
+#timer
+{
+    background-color: black;
+}
