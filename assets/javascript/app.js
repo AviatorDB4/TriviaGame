@@ -1,5 +1,5 @@
 //Questions array
-var triviaQuestions = [
+var questions = [
     {
         question: "What year did the Arizona Diamondbacks win the World Series?",
         choices: ["1998", "2001", "2007", "2011"],
@@ -47,22 +47,121 @@ var triviaQuestions = [
     },
     {
         question: "Which of the following airplanes is a WWII Fighter?",
-        choices:["B-29", "F-4 Phantom", "Mig-21", "P-51"],
+        choices:["B-29", "F-4 Phantom", "Mig-21", "P-51 Mustang"],
         correctAnswer: 3
     },
     ];
-    console.log(triviaQuestions);
+    console.log(questions)
+//variables for questions, answers and quizOver
+var currentQuestion = 0;
+var correctAnswers = 0;
+var quizOver = false;
 
-//game variables
- var currentQuestion = 0;
- var correctAnswer = 0;
- var quizEnd = false;
-
-$(document).ready(function()
-//prompt first question
+$(document).ready(function () 
 {
-    promptQuestion();
-    $(this).find(".quiz").hide();
 
-    //onclick
-})
+    //timer function for 60s
+    var count = 60;
+    var counter = setInterval(timer, 1000);
+
+    function timer()
+    {
+        count = count - 1;
+        if (count <= 0)
+        {
+            clearInterval(counter);
+            return;
+        }
+        document.getElementById("timer").innerHTML = count + " seconds";
+    }
+    // Display the first question
+    displayCurrentQuestion();
+    $(this).find(".quizQ").hide();
+
+    // On clicking next, display the next question
+    $(this).find(".next-button").on("click", function () 
+    {
+        if (!quizOver) 
+        {
+
+            value = $("input[type='radio']:checked").val();
+
+            if (value == undefined) 
+            {
+                $(document).find(".quizQ").text("Please select an answer");
+                $(document).find(".quizQ").show();
+            } else 
+                {
+                $(document).find(".quizQ").hide();
+
+                if (value == questions[currentQuestion].correctAnswer) 
+                {
+                    correctAnswers++;
+                }
+
+                currentQuestion++;
+                if (currentQuestion < questions.length) 
+                {
+                    displayCurrentQuestion();
+                } else 
+                {
+                    displayScore();
+                    
+                    $(document).find(".next-button").text("Play Again?");
+                    quizOver = true;
+                }
+            }
+        } else 
+        { 
+            quizOver = false;
+            $(document).find(".next-button").text("Next Question");
+            resetQuiz();
+            displayCurrentQuestion();
+            hideScore();
+        }
+    });
+
+});
+
+//Current question AND the choices
+function displayCurrentQuestion() 
+{
+
+    console.log("Test");
+
+    var question = questions[currentQuestion].question;
+    var questionClass = $(document).find(".quizContainer > .question");
+    var choiceList = $(document).find(".quizContainer > .choiceList");
+    var numChoices = questions[currentQuestion].choices.length;
+
+    // Set the questionClass text to the current question
+    $(questionClass).text(question);
+
+    // Remove all current <li> elements (if any)
+    $(choiceList).find("li").remove();
+
+    var choice;
+    for (i = 0; i < numChoices; i++) 
+    {
+        choice = questions[currentQuestion].choices[i];
+        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
+    }
+}
+
+function resetQuiz() 
+{
+    currentQuestion = 0;
+    correctAnswers = 0;
+    hideScore();
+}
+
+function displayScore() 
+{
+    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+    $(document).find(".quizContainer > .result").show();
+}
+
+function hideScore() 
+{
+    $(document).find(".result").hide();
+}
