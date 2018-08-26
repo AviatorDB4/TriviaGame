@@ -53,9 +53,10 @@ var questions = [
     ];
     console.log(questions)
 //variables for questions, answers and quizOver
+var quizOver = false;
 var currentQuestion = 0;
 var correctAnswers = 0;
-var quizOver = false;
+
 
 $(document).ready(function () 
 {
@@ -150,14 +151,14 @@ function displayCurrentQuestion()
 
 function resetQuiz() 
 {
-    currentQuestion = 0;
     correctAnswers = 0;
+    currentQuestion = 0;
     hideScore();
 }
 
 function displayScore() 
 {
-    $(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+    $(document).find(".quizContainer > .result").text("Your score is: " + correctAnswers + " out of: " + questions.length);
     $(document).find(".quizContainer > .result").show();
 }
 
