@@ -123,7 +123,7 @@ $(document).ready(function ()
 
 });
 
-//Current question AND the choices
+//Current question and the choices
 function displayCurrentQuestion() 
 {
 
@@ -164,4 +164,4 @@ function displayScore()
 function hideScore() 
 {
     $(document).find(".result").hide();
-}
+};
