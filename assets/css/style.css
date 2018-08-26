@@ -8,10 +8,11 @@
 
 #gameStart
 {
-    width: 100%;
+    width: 30%;
     background-color: black;
     color: white;
     font-size: 20px;
+    margin: auto;
 }
 
 #questions
